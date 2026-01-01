@@ -5,10 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import {cn, formatCurrency} from "@/lib/utils";
 import {TrendingDown, TrendingUp} from "lucide-react";
+import {TrendingCoinsFallback} from "@/components/home/fallback";
 
 const TrendingCoins =async () => {
-    const trendingCoins = await fetcher<{coins: TrendingCoin[]
-    }>('/search/trending', undefined, 300)
+    let trendingCoins;
+    try{
+        trendingCoins = await fetcher<{coins: TrendingCoin[]
+        }>('/search/trending', undefined, 300);
+    }catch(error){
+        console.log(error);
+        return <TrendingCoinsFallback/>
+    }
 
     const columns:DataTableColumn<TrendingCoin>[] =  [
         {
@@ -26,7 +33,7 @@ const TrendingCoins =async () => {
         },
         {
             header:'24Hr Change',
-            cellClassName:'name-cell',
+            cellClassName:'change-cell',
             cell:(coin) => {
                 const item = coin.item;
                 const changePercentage = item.data.price_change_percentage_24h.usd;
@@ -63,17 +70,15 @@ const TrendingCoins =async () => {
     return (
         <div id="trending-coins">
             <h4> Trending Coins</h4>
-
-            <div id='trending-coins'>
-               <DataTable
+            <DataTable
                    data={trendingCoins.coins.slice(0,6) || [] }
                    columns={columns}
                    rowKey={(coin) => coin.item.id}
                    tableClassName="trending-coins-table"
                    bodyCellClassName="py-2!"
                    headerCellClassName="py-3!"
-               />
-            </div>
+            />
+
         </div>
     )
 }
