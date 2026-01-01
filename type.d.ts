@@ -173,6 +173,9 @@ interface WebSocketMessage {
     identifier?: string;
 }
 
+
+//coindetailsdata is the type taken from coingecko docs.
+
 interface CoinDetailsData {
     id: string;
     name: string;
@@ -262,7 +265,9 @@ interface UseCoinGeckoWebSocketReturn {
 
 interface DataTableColumn<T> {
     header: React.ReactNode;
+    //A ReactNode can be almost anything: a string, a number, a JSX element (like a div or an Image), or even null.
     cell: (row: T, index: number) => React.ReactNode;
+    //Any object inside the columns array must have a property named cell, and that property must be a function that takes a row and an index and returns something React can render.
     headClassName?: string;
     cellClassName?: string;
 }
