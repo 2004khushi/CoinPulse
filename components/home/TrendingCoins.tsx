@@ -5,10 +5,21 @@ import Link from "next/link";
 import Image from "next/image";
 import {cn, formatCurrency} from "@/lib/utils";
 import {TrendingDown, TrendingUp} from "lucide-react";
+import {TrendingCoinsFallback} from "@/components/home/fallback";
 
 const TrendingCoins =async () => {
-    const trendingCoins = await fetcher<{coins: TrendingCoin[]
-    }>('/search/trending', undefined, 300)
+
+    let trendingCoins;
+    try{
+        trendingCoins = await fetcher<{coins: TrendingCoin[] } >(
+            '/search/trending',
+            undefined,
+            300)
+    }catch(e){
+        console.log(e)
+        return <TrendingCoinsFallback />
+    }
+
 
     const columns:DataTableColumn<TrendingCoin>[] =  [
         {
@@ -58,6 +69,16 @@ const TrendingCoins =async () => {
             }
         },
     ]
+
+    // this is how actually trendinhgCoins look like smwhat ->
+    // {
+    //     "coins": [
+    //     { "item": { ... } },
+    //     { "item": { ... } }
+    // ],
+    //     "exchanges": [],
+    //     "categories": []
+    // }
 
 
     return (

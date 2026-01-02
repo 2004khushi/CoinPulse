@@ -1,5 +1,15 @@
 'use server';
 
+// If you import a function from a regular .ts file into a Client Component
+// (a file with "use client"), Next.js "copies and pastes" that code into the bundle
+// sent to the user's browser.
+
+// When you add "use server" to the top of a file, you are bolting that file to the server floor.
+//It changes the behavior from "default" to "restricted."
+//Even if a Client Component invites (imports) a function from this file, Next.js refuses to send the actual code to the browser.
+//Instead, it creates a "Phone Call" (an HTTP POST request).
+//When the user clicks a button in the browser, it "calls" the server, the server runs the code in private, and just yells the result back to the browser.
+
 import qs from 'query-string';
 
 //EXAMPLE OF QS ->
