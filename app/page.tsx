@@ -1,10 +1,4 @@
 import React from 'react'
-import Image from "next/image";
-import Link from "next/link";
-import DataTable from "@/components/DataTable";
-import {TrendingUp, TrendingDown} from "lucide-react";
-import {cn, formatCurrency} from "@/lib/utils";
-import {fetcher} from "@/lib/coingecko.actions";
 import CoinOverview from "@/components/home/CoinOverview";
 import {Suspense} from "react";
 import TrendingCoins from "@/components/home/TrendingCoins";
@@ -26,8 +20,6 @@ const Page = async () => {
                     <TrendingCoins />
                 </Suspense>
             </section>
-
-
 
             <section className="w-full mt-7 space-y-4">
                 <p>Categories</p>

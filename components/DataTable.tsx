@@ -30,6 +30,8 @@ const DataTable =<T,> ({columns, data ,
                     ))}
                 </TableRow>
             </TableHeader>
+
+
             <TableBody>
                 {data.map((row,rowIndex) => (
                     <TableRow key={rowKey(row, rowIndex)}
